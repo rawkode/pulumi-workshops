@@ -4,6 +4,7 @@ import { PulumiOperator } from "./operator";
 
 const network = new civo.Network("network", {
   label: "workshop",
+  region: "lon1",
 });
 
 const firewall = new civo.Firewall("firewall", {
@@ -20,6 +21,8 @@ const kubernetesCluster = new civo.KubernetesCluster("workshop", {
     nodeCount: 3,
   },
 });
+
+export const kubeconfig = kubernetesCluster.kubeconfig;
 
 const operator = new PulumiOperator("workshop", {
   provider: new kubernetes.Provider("civo", {
